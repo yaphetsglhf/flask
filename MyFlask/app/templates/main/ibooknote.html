@@ -1,0 +1,54 @@
+{% if page_num == 1 %}
+    {% extends "layout.html" %}
+
+    {% block head %}
+
+        <link rel="stylesheet" href="/static/css/popup.css">
+
+        <style>
+            table{ table-layout: fixed; }
+            .textHide{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .textShow{ overflow: visible; }
+            .table{ margin-bottom:0px; }
+        </style>
+
+    {% endblock %}
+
+    {% block content %}
+        <table class="table table-hover">
+            <thead>
+            <!--<caption><center><b><h4>家园反馈</h4></b></center></caption>-->
+                <tr>
+                    <th style="width: 10%;">姓名</th>
+                    <th style="width: 12%;">电话</th>
+                    <th style="width: 12%;">身份</th>
+                    <th style="width: 12%;">时间</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+
+            <tbody id="tab_content">
+                {% for i in inf %}
+                    <tr>
+                        <td style="width: 10%;">{{ i[0] }}</td>
+                        <td style="width: 12%;">{{ i[1] }}</td>
+                        <td style="width: 12%;">{{ i[2] }}</td>
+                        <td style="width: 12%;">{{ i[4] }}</td>
+                        <td class="textHide" onmouseover="this.className='textShow'" onmouseout="this.className='textHide'">{{ i[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+
+{% else %}
+    {% for i in inf %}
+        <tr>
+            <td style="width: 10%;">{{ i[0] }}</td>
+            <td style="width: 12%;">{{ i[1] }}</td>
+            <td style="width: 12%;">{{ i[2] }}</td>
+            <td style="width: 12%;">{{ i[4] }}</td>
+            <td class="textHide" onmouseover="this.className='textShow'" onmouseout="this.className='textHide'">{{ i[3] }}</td>
+        </tr>
+    {% endfor %}
+{% endif %}

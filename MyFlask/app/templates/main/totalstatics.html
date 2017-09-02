@@ -1,0 +1,61 @@
+{% if page_num == 1 %}
+    {% extends "layout.html" %}
+
+    {% block head %}
+
+        <style>
+            table{ table-layout: fixed; }
+            .table{ margin-bottom:0px; }
+            .table-head-num{ font-size: 10px; font-weight: lighter; color: #337ab7;}
+            .generate-excel{ visibility: visible; }
+            .download-excel{ visibility: visible; }
+        </style>
+
+    {% endblock %}
+
+    {% block content %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">幼儿园 <button class="table-head-num" disabled="disabled">{{ inf2[0] }}</button></th>
+                    <th>年级数 <button class="table-head-num" disabled="disabled">{{ inf2[1] }}</button></th>
+                    <th>班级数 <button class="table-head-num" disabled="disabled">{{ inf2[2] }}</button></th>
+                    <th>带班老师数 <button class="table-head-num" disabled="disabled">{{ inf2[3] }}</button></th>
+                    <th>激活老师数 <button class="table-head-num" disabled="disabled">{{ inf2[4] }}</button></th>
+                    <th>学生数 <button class="table-head-num" disabled="disabled">{{ inf2[5] }}</button></th>
+                    <th>激活学生数 <button class="table-head-num" disabled="disabled">{{ inf2[6] }}</button></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in inf %}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                        <td>{{ i[1] }}</td>
+                        <td>{{ i[2] }}</td>
+                        <td>{{ i[3] }}</td>
+                        <td>{{ i[4] }}</td>
+                        <td>{{ i[5] }}</td>
+                        <td>{{ i[6] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    {% endblock %}
+
+{% else %}
+
+    {% for i in inf %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+            <td>{{ i[4] }}</td>
+            <td>{{ i[5] }}</td>
+            <td>{{ i[6] }}</td>
+        </tr>
+    {% endfor %}
+
+{% endif %}

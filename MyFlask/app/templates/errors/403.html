@@ -1,0 +1,9 @@
+{% if current_user.is_authenticated %}
+    {% extends "layout.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
+
+{% block content %}
+    <h1>Forbidden!</h1>
+{% endblock %}

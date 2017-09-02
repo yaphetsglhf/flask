@@ -1,0 +1,113 @@
+{% if page_num == 1 %}
+    {% extends "layout.html" %}
+
+    {% block head %}
+
+        <link rel="stylesheet" href="/static/css/popup.css">
+
+        <style>
+            table{ table-layout: fixed; }
+            .textHide{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .textShow{ overflow: visible; }
+            .table{ margin-bottom:0px; }
+        </style>
+
+    {% endblock %}
+
+    {% block content %}
+        <table class="table table-hover">
+            <thead>
+            <!--<caption><center><b><h4>家园反馈</h4></b></center></caption>-->
+                <tr>
+                    <th style="width: 8%;">姓名</th>
+                    <th style="width: 11%;">电话</th>
+                    <th style="width: 7%;">身份</th>
+                    <th style="width: 14%;">时间</th>
+                    <th>反馈内容</th>
+                    <th style="width: 5%;"></th>
+                </tr>
+            </thead>
+
+            <tbody id="tab_content">
+                {% for i in inf %}
+                    <tr>
+                        <td style="width: 8%;">{{ i[1] }}</td>
+                        <td style="width: 11%;">{{ i[2] }}</td>
+                        <td style="width: 7%;">{{ i[3] }}</td>
+                        <td style="width: 14%;">{{ i[4] }}</td>
+                        <td class="textHide" onmouseover="this.className='textShow'" onmouseout="this.className='textHide'">{{ i[0] }}</td>
+
+                        {% if i[6] == 1 %}
+                            <td style="width: 5%;">
+                                <button id="{{ i[5] }}" type="button" class="btn btn-info" data-tel="{{ i[2] }}" data-fid="{{ i[5] }}" onclick="feedback_send_message(this)" style="background: #337ab7; z-index: -1;" disabled="disabled">R</button>
+                            </td>
+                        {% else %}
+                            <td style="width: 5%;">
+                                <button id="{{ i[5] }}" type="button" class="btn btn-info" data-tel="{{ i[2] }}" data-fid="{{ i[5] }}" onclick="feedback_send_message(this)" style="background: #337ab7;">R</button>
+                            </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <!--默认隐藏的短信弹出框-->
+            <div class="popup_box">
+                <div class="popup_head">
+                    <span class="popup_title">&nbsp;短信回复</span>
+                </div>
+                <div class="popup_content">
+                    <textarea id="popup_textarea" class="text_area" name="content" raws="5" placeholder="内容..." maxlength="100"></textarea>
+
+                    <div class="popup_bottom_button">
+                        <button type="button" class="btn btn-link" onclick="popup_cancel()">取消</button>
+                        <button id="send-button" type="submit" class="btn btn-primary" data-loading-text="loading" onclick="feedback_answer()">
+                            发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </table>
+    {% endblock %}
+
+{% else %}
+    {% for i in inf %}
+        <tr>
+            <td style="width: 8%;">{{ i[1] }}</td>
+            <td style="width: 11%;">{{ i[2] }}</td>
+            <td style="width: 7%;">{{ i[3] }}</td>
+            <td style="width: 14%;">{{ i[4] }}</td>
+            <td class="textHide" onmouseover="this.className='textShow'" onmouseout="this.className='textHide'">{{ i[0] }}</td>
+
+            {% if i[6] == 1 %}
+                <td style="width: 5%;">
+                    <button id="{{ i[5] }}" type="button" class="btn btn-info" data-tel="{{ i[2] }}" data-fid="{{ i[5] }}" onclick="feedback_send_message(this)" style="background: #337ab7; z-index: -1;" disabled="disabled">R</button>
+                </td>
+            {% else %}
+                <td style="width: 5%;">
+                    <button id="{{ i[5] }}" type="button" class="btn btn-info" data-tel="{{ i[2] }}" data-fid="{{ i[5] }}" onclick="feedback_send_message(this)" style="background: #337ab7;">R</button>
+                </td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+
+    <!--默认隐藏的短信弹出框-->
+    <div class="popup_box">
+        <div class="popup_head">
+            <span class="popup_title">&nbsp;短信回复</span>
+        </div>
+        <div class="popup_content">
+            <textarea id="popup_textarea" class="text_area" name="content" raws="5" placeholder="内容..." maxlength="100"></textarea>
+
+            <div class="popup_bottom_button">
+                <button type="button" class="btn btn-link" onclick="popup_cancel()">取消</button>
+                <button id="send-button" type="submit" class="btn btn-primary" data-loading-text="发送中" onclick="feedback_answer()">
+                    发送
+                </button>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

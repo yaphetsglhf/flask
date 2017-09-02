@@ -1,0 +1,47 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "main/_macros.html" as macros %}
+
+{% if current_user.is_authenticated %}
+    {% extends "layout.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
+
+{% block scripts %}
+    {{ pagedown.include_pagedown() }}
+    {{ moment.include_moment() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>&nbsp;Hello,
+        {% if current_user.is_authenticated %}
+            {{ current_user.username }}!
+        {% else %}
+            Stranger!
+        {% endif %}
+        </h1>
+    </div>
+
+    <div>
+        {% if current_user.can(Permission.WRITE_ARTICLES) %}
+            {{ wtf.quick_form(form) }}
+        {% endif %}
+    </div>
+
+    {% include 'main/_posts.html' %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, 'main.index') }}
+    </div>
+
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+{% endblock %}
+
+

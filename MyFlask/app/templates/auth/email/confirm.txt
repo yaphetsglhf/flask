@@ -1,0 +1,5 @@
+Dear {{ user.username }},
+Welcome to yiqizhangda!
+To confirm your account please click here: {{ url_for('auth.confirm', token=token, _external=True) }}
+
+Thanks for support!

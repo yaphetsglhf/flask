@@ -1,0 +1,42 @@
+{% block scripts %}
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-cn') }}
+{% endblock %}
+
+{% if current_user.is_authenticated %}
+    {% extends "layout.html" %}
+{% else %}
+    {% extends "base.html" %}
+{% endif %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ user.username }}</h1>
+        {% if user.fullname or user.location %}
+            <p>
+                {% if user.fullname %}{{ user.fullname }}{% endif %}
+                {% if user.location %}{{ user.location }}{% endif %}
+            </p>
+        {% endif %}
+
+        {% if current_user.is_administrator() %}
+            <p>{% if user.email %}{{ user.email }}{% endif %}</p>
+        {% endif %}
+
+        {% if user.about_me %}
+            <p>{{ user.about_me }}</p>
+        {% endif %}
+        <p>Member since {{ user.member_since }}</p>
+        <p>Last seen {{ moment(user.last_seen).fromNow() }}</p>
+
+        {% if current_user.is_administrator() %}
+            <a class="btn btn-danger" href="{{ url_for('main.edit_profile_admin', uid=user.id) }}">Edit Profile[Admin]</a>
+        {% else %}
+            <a class="btn btn-danger" href="{{ url_for('main.edit_profile')}}">Edit profile</a>
+        {% endif %}
+    </div>
+
+    <h3>Posts by {{ user.username }}</h3>
+    {% include 'main/_posts.html' %}
+
+{% endblock %}
