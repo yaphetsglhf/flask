@@ -333,6 +333,3 @@ def get_ibooknote():
         return render_template('empty.html', title='Ibooknote')
     else:
         return render_template('main/ibooknote.html', inf=inf, title='Ibooknote', page_num=page)
-
-
-

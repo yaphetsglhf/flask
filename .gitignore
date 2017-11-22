@@ -5,4 +5,8 @@ venv/
 *.jpg
 *.jpeg
 *.pyc
+
+# mac files
 .DS_Store
+.tags
+.tags1
